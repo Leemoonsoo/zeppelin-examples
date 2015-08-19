@@ -1,0 +1,63 @@
+{
+  "paragraphs": [
+    {
+      "text": "{\n    import org.apache.spark.sql.{SQLContext, DataFrame}\n    val clicksS3Bucket \u003d \"s3n://yadi/yado\"\n    val impressionsS3Bucket \u003d \"s3n://yadi/yado\"\n    val clicksDF \u003d sc.parallelize(1 to 10)\n    val data \u003d clicksDF.count\n    print(s\"Count for pixels data is $data\")\n}\n",
+      "dateUpdated": "Aug 19, 2015 12:38:30 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1440010897017_-899231460",
+      "id": "20150819-120137_1668285267",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Count for pixels data is 10"
+      },
+      "dateCreated": "Aug 19, 2015 12:01:37 PM",
+      "dateStarted": "Aug 19, 2015 12:38:30 PM",
+      "dateFinished": "Aug 19, 2015 12:38:31 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1440011142548_-582245983",
+      "id": "20150819-120542_1650275523",
+      "dateCreated": "Aug 19, 2015 12:05:42 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Hide unnecessary output in scala",
+  "id": "2AZ1GKBDF",
+  "angularObjects": {
+    "2AKMJC7N1": [],
+    "2ADHF8MMD": [],
+    "2ASV4A1ST": [],
+    "2AWWJEQ5U": [],
+    "2ATPJ6CSC": [],
+    "2AEDN31CP": [],
+    "2AUMSHM7J": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}
