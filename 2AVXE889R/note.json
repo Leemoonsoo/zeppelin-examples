@@ -1,0 +1,124 @@
+{
+  "paragraphs": [
+    {
+      "text": "%dep\nz.reset()\nz.load(\"org.apache.mahout:mahout-spark_2.10:0.10.1\")",
+      "dateUpdated": "Aug 20, 2015 5:57:48 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1439936863386_-1088934201",
+      "id": "20150818-152743_1562047674",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res0: org.apache.zeppelin.spark.dep.Dependency \u003d org.apache.zeppelin.spark.dep.Dependency@5be2dac5\n"
+      },
+      "dateCreated": "Aug 18, 2015 3:27:43 PM",
+      "dateStarted": "Aug 20, 2015 5:57:48 PM",
+      "dateFinished": "Aug 20, 2015 5:58:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import org.apache.mahout.math._\nimport scalabindings._\nimport RLikeOps._\nimport drm._\nimport RLikeDrmOps._\nimport org.apache.mahout.sparkbindings._\nimport collection.JavaConversions._\n@transient implicit val sdc: org.apache.mahout.math.drm.DistributedContext \u003d new org.apache.mahout.sparkbindings.SparkDistributedContext(sc)",
+      "dateUpdated": "Aug 20, 2015 5:59:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1439936868727_-326346557",
+      "id": "20150818-152748_2140552057",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "import org.apache.mahout.math._\nimport scalabindings._\nimport RLikeOps._\nimport drm._\nimport RLikeDrmOps._\nimport org.apache.mahout.sparkbindings._\nimport collection.JavaConversions._\nsdc: org.apache.mahout.math.drm.DistributedContext \u003d org.apache.mahout.sparkbindings.SparkDistributedContext@225b957e\n"
+      },
+      "dateCreated": "Aug 18, 2015 3:27:48 PM",
+      "dateStarted": "Aug 20, 2015 5:59:19 PM",
+      "dateFinished": "Aug 20, 2015 6:00:06 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "sdc.version",
+      "dateUpdated": "Aug 20, 2015 6:00:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1439938865328_-1068523602",
+      "id": "20150818-160105_1145517455",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res1: String \u003d 1.4.1\n"
+      },
+      "dateCreated": "Aug 18, 2015 4:01:05 PM",
+      "dateStarted": "Aug 20, 2015 6:00:18 PM",
+      "dateFinished": "Aug 20, 2015 6:00:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1440118818614_2014099861",
+      "id": "20150820-180018_183228371",
+      "dateCreated": "Aug 20, 2015 6:00:18 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Mahout",
+  "id": "2AVXE889R",
+  "angularObjects": {
+    "2ADHF8MMD": [],
+    "2ASV4A1ST": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}
