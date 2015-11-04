@@ -1,0 +1,382 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md this is the example monitoring cluster resource inside of zeppelin (without any cluster monitoring software installed) by using spark",
+      "dateUpdated": "Oct 21, 2015 4:05:07 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "tableHide": false,
+        "editorHide": true,
+        "editorMode": "ace/mode/markdown"
+      },
+      "settings": {
+        "params": {
+          "path": "hdfs://commander1.nflabs.com:8020/data/bank/*"
+        },
+        "forms": {}
+      },
+      "jobName": "paragraph_1427960510046_1748056322",
+      "id": "20150402-164150_2096298974",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003ethis is the example monitoring cluster resource inside of zeppelin (without any cluster monitoring software installed) by using spark\u003c/p\u003e\n"
+      },
+      "dateCreated": "Apr 2, 2015 4:41:50 PM",
+      "dateStarted": "Apr 8, 2015 1:21:39 PM",
+      "dateFinished": "Apr 8, 2015 1:21:39 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// define cluster monitoring function.\n// requires mpstat command installed in all spark workers.\n\nimport sys.process._\n\ndef getClusterCpu \u003d {\n    sc.setLocalProperty(\"spark.scheduler.pool\", \"fair\");\n    val clusterCpu \u003d sc.parallelize(1 to 10).map{s\u003d\u003e\n        ((\"hostname\" !!).replace(\"\\n\", \"\"), \"mpstat 1 1\" !!)\n    }.map{ s \u003d\u003e\n        (s._1, ((100.0 - s._2.split(\"\\n\")(3).split(\"\\\\s+\")(10).toDouble)*100).toInt.toDouble / 100)\n    }.reduceByKey((a,b) \u003d\u003e scala.math.max(a,b)).collect.sortWith(_._1 \u003c _._1)\n    z.angularBind(\"cpuUsage\", clusterCpu)\n}",
+      "dateUpdated": "Nov 2, 2015 12:02:02 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1427960525243_491481738",
+      "id": "20150402-164205_360658609",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "import sys.process._\nwarning: there were 2 feature warning(s); re-run with -feature for details\ngetClusterCpu: Unit\n"
+      },
+      "dateCreated": "Apr 2, 2015 4:42:05 PM",
+      "dateStarted": "Nov 2, 2015 12:02:02 PM",
+      "dateFinished": "Nov 2, 2015 12:02:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// start monitoring. once a second.\nval t \u003d new java.util.Timer()\nval task \u003d new java.util.TimerTask {\n  def run() \u003d getClusterCpu\n}\nt.schedule(task, 1000L, 1000L)",
+      "dateUpdated": "Nov 2, 2015 12:02:29 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorHide": false,
+        "tableHide": false,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428463640180_951507321",
+      "id": "20150408-122720_1669705867",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "t: java.util.Timer \u003d java.util.Timer@15c32912\ntask: java.util.TimerTask \u003d $iwC$$iwC$$iwC$$iwC$$iwC$$iwC$$iwC$$iwC$$iwC$$iwC$$anon$1@1f362cfe\n"
+      },
+      "dateCreated": "Apr 8, 2015 12:27:20 PM",
+      "dateStarted": "Nov 2, 2015 12:02:29 PM",
+      "dateFinished": "Nov 2, 2015 12:02:30 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%angular\nCluster CPU Usage\n\n\u003ctable class\u003d\"table\"\u003e\n    \u003ctr\u003e\n        \u003cth style\u003d\"width:200px\"\u003eHost\u003c/th\u003e\n        \u003cth style\u003d\"width:100px\"\u003eCpu\u003c/th\u003e\n        \u003cth\u003e\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003ctr ng-repeat\u003d\"info in cpuUsage\"\u003e\n        \u003ctd\u003e{{info._1}}\u003c/td\u003e\n        \u003ctd\u003e{{info._2}}\u003c/td\u003e\n        \u003ctd\u003e\n            \u003cdiv class\u003d\"progress\"\u003e\n              \u003cdiv class\u003d\"progress-bar\" role\u003d\"progressbar\" aria-valuenow\u003d\"{{info._2}}\" aria-valuemin\u003d\"0\" aria-valuemax\u003d\"100\" style\u003d\"width: {{info._2}}%;\"\u003e\n                \u003cspan class\u003d\"sr-only\"\u003e{{info._2}}%\u003c/span\u003e\n              \u003c/div\u003e\n            \u003c/div\u003e\n        \u003c/td\u003e\n    \u003c/tr\u003e\n\u003c/table\u003e\n",
+      "dateUpdated": "Nov 2, 2015 12:02:10 PM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorHide": true,
+        "editorMode": "ace/mode/scala",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428463770087_574654258",
+      "id": "20150408-122930_167445471",
+      "result": {
+        "code": "SUCCESS",
+        "type": "ANGULAR",
+        "msg": "Cluster CPU Usage\n\n\u003ctable class\u003d\"table\"\u003e\n    \u003ctr\u003e\n        \u003cth style\u003d\"width:200px\"\u003eHost\u003c/th\u003e\n        \u003cth style\u003d\"width:100px\"\u003eCpu\u003c/th\u003e\n        \u003cth\u003e\u003c/th\u003e\n    \u003c/tr\u003e\n    \u003ctr ng-repeat\u003d\"info in cpuUsage\"\u003e\n        \u003ctd\u003e{{info._1}}\u003c/td\u003e\n        \u003ctd\u003e{{info._2}}\u003c/td\u003e\n        \u003ctd\u003e\n            \u003cdiv class\u003d\"progress\"\u003e\n              \u003cdiv class\u003d\"progress-bar\" role\u003d\"progressbar\" aria-valuenow\u003d\"{{info._2}}\" aria-valuemin\u003d\"0\" aria-valuemax\u003d\"100\" style\u003d\"width: {{info._2}}%;\"\u003e\n                \u003cspan class\u003d\"sr-only\"\u003e{{info._2}}%\u003c/span\u003e\n              \u003c/div\u003e\n            \u003c/div\u003e\n        \u003c/td\u003e\n    \u003c/tr\u003e\n\u003c/table\u003e\n"
+      },
+      "dateCreated": "Apr 8, 2015 12:29:30 PM",
+      "dateStarted": "Sep 2, 2015 5:52:14 PM",
+      "dateFinished": "Sep 2, 2015 5:52:15 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "// let\u0027s load some data and see how it monitors\nval data \u003d sc.parallelize(1 to 1000).map{s\u003d\u003e\n    (1 to 2000000).foreach{new java.util.Random(_).nextInt}\n}",
+      "dateUpdated": "Nov 2, 2015 12:02:44 PM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorHide": false,
+        "tableHide": false,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428466345932_-1960964708",
+      "id": "20150408-131225_301120032",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "data: org.apache.spark.rdd.RDD[Unit] \u003d MapPartitionsRDD[17] at map at \u003cconsole\u003e:27\n"
+      },
+      "dateCreated": "Apr 8, 2015 1:12:25 PM",
+      "dateStarted": "Nov 2, 2015 12:02:44 PM",
+      "dateFinished": "Nov 2, 2015 12:02:44 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "data.count",
+      "dateUpdated": "Nov 2, 2015 12:02:46 PM",
+      "config": {
+        "colWidth": 6.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428466482867_-637661643",
+      "id": "20150408-131442_410635590",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res10: Long \u003d 1000\n"
+      },
+      "dateCreated": "Apr 8, 2015 1:14:42 PM",
+      "dateStarted": "Nov 2, 2015 12:02:46 PM",
+      "dateFinished": "Nov 2, 2015 12:03:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428466965613_-1225480818",
+      "id": "20150408-132245_1823749070",
+      "dateCreated": "Apr 8, 2015 1:22:45 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "t.cancel",
+      "dateUpdated": "Nov 2, 2015 12:04:11 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428464324654_82557126",
+      "id": "20150408-123844_673822021",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Apr 8, 2015 12:38:44 PM",
+      "dateStarted": "Nov 2, 2015 12:04:11 PM",
+      "dateFinished": "Nov 2, 2015 12:04:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": " ",
+      "dateUpdated": "Nov 2, 2015 12:09:08 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1428500392852_339436039",
+      "id": "20150408-223952_953547320",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT"
+      },
+      "dateCreated": "Apr 8, 2015 10:39:52 PM",
+      "dateStarted": "Nov 2, 2015 12:09:08 PM",
+      "dateFinished": "Nov 2, 2015 12:09:08 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Nov 2, 2015 12:07:52 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1446433603913_-2041025150",
+      "id": "20151102-120643_1189689063",
+      "dateCreated": "Nov 2, 2015 12:06:43 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Cluster resource monitoring",
+  "id": "2AM6ZN22R",
+  "angularObjects": {
+    "2AK1B4ZUD": [],
+    "2AM2UGDME": [
+      {
+        "name": "cpuUsage",
+        "object": [
+          {
+            "_1": "worker1.nflabs.com",
+            "_2": 0.5
+          },
+          {
+            "_1": "worker3.nflabs.com",
+            "_2": 0.37
+          },
+          {
+            "_1": "worker5.nflabs.com",
+            "_2": 0.37
+          },
+          {
+            "_1": "worker7.nflabs.com",
+            "_2": 0.37
+          },
+          {
+            "_1": "worker8.nflabs.com",
+            "_2": 0.37
+          }
+        ]
+      },
+      {
+        "name": "cpuUsage",
+        "object": [
+          {
+            "_1": "worker2.nflabs.com",
+            "_2": 0.87
+          },
+          {
+            "_1": "worker7.nflabs.com",
+            "_2": 0.75
+          },
+          {
+            "_1": "worker9.nflabs.com",
+            "_2": 1.0
+          }
+        ],
+        "noteId": "2AM6ZN22R"
+      }
+    ],
+    "2ANGVG7YR": [],
+    "2AJH2NBT3": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}
