@@ -1,0 +1,146 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark\n\n\n// display calender\nprintln(\"\"\"\n%angular\n\u003cinput type\u003d\"text\" id\u003d\"calendar\" size\u003d\"20\" ng-model\u003d\"calendar\"\u003e\u003c/input\u003e\n \n\u003cscript\u003e\n$(\"#calendar\").datepicker({\n    dateFormat: \u0027yy-mm-dd\u0027\n});\n\u003c/script\u003e\n\"\"\")\n\n\n// z.angularUnbind(\"calendar\") // clear previously binded value\n\n// bind value\nz.angularBind(\"calendar\", \"15-11-21\")",
+      "dateUpdated": "Nov 21, 2015 11:16:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1448071861710_-2053155465",
+      "id": "20151121-111101_841668754",
+      "result": {
+        "code": "SUCCESS",
+        "type": "ANGULAR",
+        "msg": "\u003cinput type\u003d\"text\" id\u003d\"calendar\" size\u003d\"20\" ng-model\u003d\"calendar\"\u003e\u003c/input\u003e\n \n\u003cscript\u003e\n$(\"#calendar\").datepicker({\n    dateFormat: \u0027yy-mm-dd\u0027\n});\n\u003c/script\u003e\n\n"
+      },
+      "dateCreated": "Nov 21, 2015 11:11:01 AM",
+      "dateStarted": "Nov 21, 2015 11:16:29 AM",
+      "dateFinished": "Nov 21, 2015 11:16:30 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\n// watch date change\nz.angularWatch(\"calendar\", (before:Object, after:Object, context:org.apache.zeppelin.interpreter.InterpreterContext) \u003d\u003e {\n    // on calendar change, run 3rd paragraph. Paragraph index starts from 0\n    z.run(2, context)\n})",
+      "dateUpdated": "Nov 21, 2015 11:19:15 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1448071927304_934875657",
+      "id": "20151121-111207_570636016",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Nov 21, 2015 11:12:07 AM",
+      "dateStarted": "Nov 21, 2015 11:19:15 AM",
+      "dateFinished": "Nov 21, 2015 11:19:16 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\n// retreive value\nprint(\"Selected Date \u003d \" + z.angular(\"calendar\").toString)",
+      "dateUpdated": "Nov 21, 2015 11:19:17 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1448072078379_1863521584",
+      "id": "20151121-111438_1950531002",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "Selected Date \u003d 2015-11-20"
+      },
+      "dateCreated": "Nov 21, 2015 11:14:38 AM",
+      "dateStarted": "Nov 21, 2015 11:19:29 AM",
+      "dateFinished": "Nov 21, 2015 11:19:30 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1448072357869_1998182054",
+      "id": "20151121-111917_296648954",
+      "dateCreated": "Nov 21, 2015 11:19:17 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Calendar",
+  "id": "2B44Q5U7T",
+  "angularObjects": {
+    "2AZMCHTK3": [],
+    "2AXP4N64K": [],
+    "2AZNCBFKX": [],
+    "2AYSZEG1E": [],
+    "2AYKXXAPX": [],
+    "2AYP9Q5HZ": [
+      {
+        "name": "startDate"
+      },
+      {
+        "name": "endDate"
+      },
+      {
+        "name": "run"
+      },
+      {
+        "name": "calendar",
+        "object": "2015-11-20",
+        "noteId": "2B44Q5U7T"
+      }
+    ],
+    "2AZDGUZ6J": [],
+    "2AXF6Y261": [],
+    "2AXDCYDE9": [],
+    "2AYSNKH1P": [],
+    "2AYT8MGXK": []
+  },
+  "config": {},
+  "info": {}
+}
