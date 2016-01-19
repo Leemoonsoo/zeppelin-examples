@@ -1,0 +1,108 @@
+{
+  "paragraphs": [
+    {
+      "text": "case class Value(index : Int, name: String, aggr: String)\ncase class Group(index : Int, name: String)\ncase class Key(index : Int, name: String)\n\n// get graph configuration\nval graph \u003d z.getInterpreterContext.getConfig().get(\"graph\").asInstanceOf[java.util.Map[String,Object]]\n\n// set keys\ngraph.put(\"keys\", Array(Group(1, \"key\")))\n// set groups\ngraph.put(\"groups\", Array())\n\n// set values conditionally with dynamic form\nval choice \u003d z.select(\"day\", \"a\", Seq((\"a\",\"choice A\"), (\"b\", \"choice B\"))).toString\nif (choice \u003d\u003d \"a\") {\n    graph.put(\"values\", Array(Value(1, \"col1\", \"avg\")))\n} else {\n    graph.put(\"values\", Array(Value(1, \"col1\", \"avg\"), Value(2, \"col2\", \"max\")))\n}\n\nprintln(s\"\"\"%table\nkey\\tcol1\\tcol2\na\\t1\\t10\nb\\t2\\t20\"\"\")",
+      "dateUpdated": "Jan 19, 2016 12:11:25 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "index": 1.0,
+              "name": "key"
+            }
+          ],
+          "values": [
+            {
+              "index": 1.0,
+              "name": "col1",
+              "aggr": "avg"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "key",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "col1",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {
+          "day": "a"
+        },
+        "forms": {
+          "day": {
+            "name": "day",
+            "displayName": "day",
+            "defaultValue": "a",
+            "options": [
+              {
+                "value": "a",
+                "displayName": "choice A"
+              },
+              {
+                "value": "b",
+                "displayName": "choice B"
+              }
+            ],
+            "hidden": false
+          }
+        }
+      },
+      "jobName": "paragraph_1453234088330_679826294",
+      "id": "20160119-120808_1723806879",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "key\tcol1\tcol2\na\t1\t10\nb\t2\t20\n"
+      },
+      "dateCreated": "Jan 19, 2016 12:08:08 PM",
+      "dateStarted": "Jan 19, 2016 12:11:26 PM",
+      "dateFinished": "Jan 19, 2016 12:11:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1453234224911_503812157",
+      "id": "20160119-121024_1094042234",
+      "dateCreated": "Jan 19, 2016 12:10:24 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Programmatically configure graph",
+  "id": "2B8XQUC5B",
+  "angularObjects": {
+    "2AZMCHTK3": [],
+    "2AXP4N64K": [],
+    "2AZNCBFKX": [],
+    "2AYSZEG1E": [],
+    "2AYKXXAPX": [],
+    "2AZDGUZ6J": [],
+    "2AXF6Y261": [],
+    "2AXDCYDE9": [],
+    "2AYSNKH1P": [],
+    "2B9XUQQC6": [],
+    "2AYT8MGXK": [],
+    "2BBDH5R87": []
+  },
+  "config": {},
+  "info": {}
+}
